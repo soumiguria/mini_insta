@@ -235,47 +235,53 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisCount: 3, crossAxisSpacing: 2, mainAxisSpacing: 2),
       itemCount: profileData!['gallery'].length,
       itemBuilder: (context, index) {
-        return Image.network(profileData!['gallery'][index]['image'],
-            fit: BoxFit.cover);
+        return GestureDetector(
+          onTap: () {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 300),
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      PostPage(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.easeInOut;
+
+                    var tween = Tween(begin: begin, end: end)
+                        .chain(CurveTween(curve: curve));
+                    var offsetAnimation = animation.drive(tween);
+
+                    return SlideTransition(
+                        position: offsetAnimation, child: child);
+                  },
+                ),
+              );
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Image.network(
+              profileData!['gallery'][index]['image'],
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
       },
     );
   }
 
   Widget _buildStats(int value, String label, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (label == 'Posts') {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: Duration(milliseconds: 300),
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  PostPage(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                const begin = Offset(1.0, 0.0);
-                const end = Offset.zero;
-                const curve = Curves.easeInOut;
-
-                var tween = Tween(begin: begin, end: end)
-                    .chain(CurveTween(curve: curve));
-                var offsetAnimation = animation.drive(tween);
-
-                return SlideTransition(position: offsetAnimation, child: child);
-              },
-            ),
-          );
-        }
-      },
-      child: Column(
-        children: [
-          Text(
-            value.toString(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          Text(label, style: TextStyle(fontSize: 14)),
-        ],
-      ),
+    return Column(
+      children: [
+        Text(
+          value.toString(),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Text(label, style: TextStyle(fontSize: 14)),
+      ],
     );
   }
 }
