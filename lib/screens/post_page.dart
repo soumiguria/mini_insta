@@ -150,7 +150,9 @@ class _PostPageState extends State<PostPage> {
                           children: [
                             IconButton(
                               icon: Icon(
-                                FontAwesomeIcons.heart,
+                                _isLiked
+                                    ? Icons.favorite
+                                    : FontAwesomeIcons.heart,
                                 color: _isLiked
                                     ? Colors.red
                                     : theme.iconTheme.color,

@@ -182,8 +182,9 @@ class _FeedPageState extends State<FeedPage> {
                                       children: [
                                         IconButton(
                                           icon: Icon(
-                                            FontAwesomeIcons.heart,
-                                            size: 28,
+                                            _isLiked
+                                                ? Icons.favorite
+                                                : FontAwesomeIcons.heart,
                                             color: _isLiked
                                                 ? Colors.red
                                                 : Theme.of(context)
