@@ -16,8 +16,6 @@ class _FeedPageState extends State<FeedPage> {
   List posts = [];
   bool isLoading = true;
   String errorMessage = '';
-  bool _isLiked = false; // Track like status
-  int _likesCount = 0; // Track likes count
 
   @override
   void initState() {
@@ -48,13 +46,6 @@ class _FeedPageState extends State<FeedPage> {
         isLoading = false;
       });
     }
-  }
-
-  void _toggleLike() {
-    setState(() {
-      _isLiked = !_isLiked;
-      _likesCount += _isLiked ? 1 : -1; // Increase or decrease likes count
-    });
   }
 
   @override
@@ -180,24 +171,7 @@ class _FeedPageState extends State<FeedPage> {
                                         horizontal: 10, vertical: 10),
                                     child: Row(
                                       children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            _isLiked
-                                                ? Icons.favorite
-                                                : FontAwesomeIcons.heart,
-                                            color: _isLiked
-                                                ? Colors.red
-                                                : Theme.of(context)
-                                                    .iconTheme
-                                                    .color,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _isLiked = !_isLiked;
-                                              _likesCount += _isLiked ? 1 : -1;
-                                            });
-                                          },
-                                        ),
+                                        Icon(FontAwesomeIcons.heart, size: 28),
                                         const SizedBox(width: 18),
                                         const Icon(FontAwesomeIcons.comment,
                                             size: 28),
