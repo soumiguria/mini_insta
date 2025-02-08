@@ -109,16 +109,32 @@ class _FeedPageState extends State<FeedPage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.all(3),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: Colors.grey, width: 2),
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.orange,
+                                            Colors.pink,
+                                            Colors.red
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
                                       ),
-                                      child: CircleAvatar(
-                                        radius: 38,
-                                        backgroundImage: NetworkImage(
-                                            stories[index]['profile_pic']),
+                                      padding: const EdgeInsets.all(2),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                        ),
+                                        padding: const EdgeInsets.all(3),
+                                        child: CircleAvatar(
+                                          radius: 38,
+                                          backgroundImage: NetworkImage(
+                                              stories[index]['profile_pic']),
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(height: 6),
